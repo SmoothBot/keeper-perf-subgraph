@@ -1,0 +1,62 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: StrategyHedgedFarming
+    network: avalanche
+    source:
+      address: "0x096C69bDbD14DB62F869e52e7e786BD624859231"
+      abi: StrategyHedgedFarming
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - CollatRebalance
+        - DebtRebalance
+        - EmergencyExitEnabled
+        - Harvested
+        - SetDoHealthCheck
+        - SetHealthCheck
+        - UpdatedDebtThreshold
+        - UpdatedKeeper
+        - UpdatedMaxReportDelay
+        - UpdatedMetadataURI
+        - UpdatedMinReportDelay
+        - UpdatedProfitFactor
+        - UpdatedRewards
+        - UpdatedStrategist
+      abis:
+        - name: StrategyHedgedFarming
+          file: ./abis/StrategyHedgedFarming.json
+      eventHandlers:
+        - event: CollatRebalance(indexed uint256,indexed uint256)
+          handler: handleCollatRebalance
+        - event: DebtRebalance(indexed uint256,indexed uint256,indexed uint256)
+          handler: handleDebtRebalance
+        - event: EmergencyExitEnabled()
+          handler: handleEmergencyExitEnabled
+        - event: Harvested(uint256,uint256,uint256,uint256)
+          handler: handleHarvested
+        - event: SetDoHealthCheck(bool)
+          handler: handleSetDoHealthCheck
+        - event: SetHealthCheck(address)
+          handler: handleSetHealthCheck
+        - event: UpdatedDebtThreshold(uint256)
+          handler: handleUpdatedDebtThreshold
+        - event: UpdatedKeeper(address)
+          handler: handleUpdatedKeeper
+        - event: UpdatedMaxReportDelay(uint256)
+          handler: handleUpdatedMaxReportDelay
+        - event: UpdatedMetadataURI(string)
+          handler: handleUpdatedMetadataURI
+        - event: UpdatedMinReportDelay(uint256)
+          handler: handleUpdatedMinReportDelay
+        - event: UpdatedProfitFactor(uint256)
+          handler: handleUpdatedProfitFactor
+        - event: UpdatedRewards(address)
+          handler: handleUpdatedRewards
+        - event: UpdatedStrategist(address)
+          handler: handleUpdatedStrategist
+      file: ./src/strategy-hedged-farming.ts
